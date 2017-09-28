@@ -15,7 +15,7 @@ public class ChannelRequestMessage implements Message {
 
     @Override
     public Class getClassType() {
-        return null;
+        return ChannelRequestMessage.class;
     }
 
 }

@@ -21,5 +21,15 @@ public class BrokerChannel implements Channel {
     public String getChannelName() {
         return this.channelName;
     }
+
+    @Override
+    public void subScribeClient(ClientConnection clientConnection) {
+        clients.put(clientConnection.getConnectionName(), clientConnection);
+    }
+
+    @Override
+    public void unsubscribeClient(ClientConnection clientConnection) {
+        clients.remove(clientConnection.getConnectionName());
+    }
 }
 

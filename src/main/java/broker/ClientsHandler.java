@@ -38,6 +38,10 @@ public class ClientsHandler {
                         break;
                     case CREATE_CHANNEL_REQUEST:
                         createChannel(o.getData().getData());
+                        break;
+                    case SUBSCRIBE_REQUEST:
+
+
                     default:
                         break;
                 }
