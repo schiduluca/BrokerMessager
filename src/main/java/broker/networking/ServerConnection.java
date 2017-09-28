@@ -2,10 +2,14 @@ package broker.networking;
 
 
 import broker.commons.OnReceiveListener;
+import broker.dto.ChannelRequestMessage;
+import broker.dto.InitializationMessage;
 import broker.dto.MessageData;
+import broker.dto.MessageType;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class ServerConnection extends SimpleConnection {
     private OnReceiveListener onReceiveListener;
@@ -20,7 +24,7 @@ public class ServerConnection extends SimpleConnection {
         this.onReceiveListener = onReceiveListener;
     }
 
-    public Runnable listenForMessages() {
+    private Runnable listenForMessages() {
 
         return () -> {
             while (!getSocket().isClosed()) {
@@ -40,5 +44,12 @@ public class ServerConnection extends SimpleConnection {
                 }
             }
         };
+    }
+
+    public void createChannel(String channelName) {
+        MessageData<ChannelRequestMessage> channelRequest = new MessageData<>();
+        channelRequest.setMessageType(MessageType.CREATE_CHANNEL_REQUEST);
+        channelRequest.setData(new ChannelRequestMessage(channelName));
+        write(channelRequest);
     }
 }

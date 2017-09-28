@@ -38,4 +38,5 @@ public class CustomMessage implements Message {
         return CustomMessage.class;
     }
 
+
 }

@@ -21,6 +21,10 @@ build/
 .idea/
 target/
 
+MainBroker/out
+Client/out
+MainBroker/build
+Client/build
 # CMake
 cmake-build-debug/
 

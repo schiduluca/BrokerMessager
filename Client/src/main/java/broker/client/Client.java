@@ -41,6 +41,9 @@ public class Client {
 
         connection.write(messageData, "Ion", "Vanea");
 
+        connection.createChannel("PLEA");
+        connection.createChannel("UTM");
+        connection.createChannel("PLEA");
 
 
     }

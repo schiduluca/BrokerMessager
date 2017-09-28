@@ -20,4 +20,5 @@ public class InitializationMessage implements Message {
     }
 
 
+
 }

@@ -10,9 +10,10 @@ import java.net.Socket;
 import java.util.Arrays;
 
 public abstract class SimpleConnection {
-    private Socket socket;
-    private ObjectOutputStream objectOutputStream;
-    private ObjectInputStream objectInputStream;
+
+    protected Socket socket;
+    protected ObjectOutputStream objectOutputStream;
+    protected ObjectInputStream objectInputStream;
 
     public SimpleConnection(Socket socket) {
         try {
