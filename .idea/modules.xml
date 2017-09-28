@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Client.iml" filepath="$PROJECT_DIR$/.idea/modules/Client.iml" group="Client" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Client/Client_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Client/Client_main.iml" group="Client" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Client/Client_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Client/Client_test.iml" group="Client" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MainBroker.iml" filepath="$PROJECT_DIR$/.idea/modules/MainBroker.iml" group="MainBroker" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MainBroker/MainBroker_main.iml" filepath="$PROJECT_DIR$/.idea/modules/MainBroker/MainBroker_main.iml" group="MainBroker" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MainBroker/MainBroker_test.iml" filepath="$PROJECT_DIR$/.idea/modules/MainBroker/MainBroker_test.iml" group="MainBroker" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/konio.iml" filepath="$PROJECT_DIR$/.idea/modules/konio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/konio_main.iml" filepath="$PROJECT_DIR$/.idea/modules/konio_main.iml" group="konio" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/konio_test.iml" filepath="$PROJECT_DIR$/.idea/modules/konio_test.iml" group="konio" />
+    </modules>
+  </component>
+</project>
