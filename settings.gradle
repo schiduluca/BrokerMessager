@@ -1,0 +1,4 @@
+rootProject.name = 'konio'
+include 'Client'
+include 'MainBroker'
+
