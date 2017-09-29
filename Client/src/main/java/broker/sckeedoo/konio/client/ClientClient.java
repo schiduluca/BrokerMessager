@@ -15,14 +15,11 @@ public class ClientClient {
                 .build("Jora")
                 .getConnection();
 
-        connection.createChannel("UTM");
-        connection.subscribeToChannels("UTM");
 
-        connection.setOnReceiveListener(new OnReceiveListener() {
+        connection.subscribeToChannel("PLEA", new OnReceiveListener() {
             @Override
-            public void onSuccess(MessageData message) {
-                System.out.println(message.getData().getMessage());
-
+            public void onSuccess(MessageData<?> message) {
+                System.out.println(message.getData());
             }
 
             @Override

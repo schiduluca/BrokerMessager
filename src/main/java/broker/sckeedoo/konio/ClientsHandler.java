@@ -37,10 +37,6 @@ public class ClientsHandler {
                     case CREATE_CHANNEL_REQUEST:
                         createChannel(o.getData().getMessage());
                         break;
-                    case SUBSCRIBE_REQUEST:
-                        subscribeToChannel(clientConnection, o);
-                        break;
-
                     default:
                         break;
                 }
@@ -57,30 +53,11 @@ public class ClientsHandler {
     }
 
     private void dispatchMessage(MessageData o) {
-        List<ClientConnection> filteredClients = allClients.stream()
+        allClients.stream()
                 .filter(name -> o.getReceivers().contains(name.getConnectionName()))
-                .collect(Collectors.toList());
-
-        List<ClientConnection> collect = brokerChannels.stream()
-                .filter(channel -> o.getChannels().contains(channel.getChannelName()))
-                .flatMap(channel -> channel.getClients().stream())
-                .distinct().collect(Collectors.toList());
-
-        filteredClients.stream().filter(collect::contains)
                 .forEach(clientConnection -> clientConnection.sendToClient(o));
-
-
     }
 
-    private void subscribeToChannel(ClientConnection clientConnection, MessageData o) {
-        List<String> collect = Arrays.stream(o.getData().getMessage().split(","))
-                .collect(Collectors.toList());
-        brokerChannels.stream().filter(element -> collect.contains(element.getChannelName()))
-                .forEach(brokerChannel -> {
-                    brokerChannel.subScribeClient(clientConnection);
-                    System.out.println("Client " + clientConnection.getConnectionName() + " added to channel " + brokerChannel.getChannelName());
-                });
-    }
 
     private void createChannel(String channelName) {
         if(brokerChannels.stream().noneMatch(channel -> channel.getChannelName().equals(channelName))) {
