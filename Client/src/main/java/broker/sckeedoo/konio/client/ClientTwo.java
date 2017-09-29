@@ -2,8 +2,8 @@ package broker.sckeedoo.konio.client;
 
 
 import broker.sckeedoo.konio.commons.OnReceiveListener;
-import broker.sckeedoo.konio.dto.MessageData;
 import broker.sckeedoo.konio.commons.factories.ConnectionFactory;
+import broker.sckeedoo.konio.dto.MessageData;
 import broker.sckeedoo.konio.networking.connection.ServerConnection;
 
 public class ClientTwo {
@@ -14,12 +14,10 @@ public class ClientTwo {
                 .build("Ion")
                 .getConnection();
 
-        connection.subscribeToChannels("UTM");
-
-        connection.setOnReceiveListener(new OnReceiveListener() {
+        connection.subscribeToChannel("PLEA", new OnReceiveListener() {
             @Override
-            public void onSuccess(MessageData message) {
-                System.out.println(message);
+            public void onSuccess(MessageData<?> message) {
+                System.out.println(message.getData().getMessage());
             }
 
             @Override
@@ -27,5 +25,6 @@ public class ClientTwo {
 
             }
         });
+
     }
 }

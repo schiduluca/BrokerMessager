@@ -5,15 +5,14 @@ import broker.sckeedoo.konio.commons.OnReceiveListener;
 import broker.sckeedoo.konio.dto.MessageData;
 import broker.sckeedoo.konio.dto.MessageType;
 import broker.sckeedoo.konio.dto.messagetype.ChannelRequestMessage;
-import broker.sckeedoo.konio.dto.messagetype.SubscribeRequestMessage;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerConnection extends SimpleConnection {
-    private OnReceiveListener onReceiveListener;
+    private Map<String, OnReceiveListener> onReceiveListeners = new ConcurrentHashMap<>();
 
     public ServerConnection(Socket socket) {
         super(socket);
@@ -21,8 +20,8 @@ public class ServerConnection extends SimpleConnection {
     }
 
 
-    public void setOnReceiveListener(OnReceiveListener onReceiveListener) {
-        this.onReceiveListener = onReceiveListener;
+    public void subscribeToChannel(String channelName, OnReceiveListener onReceiveListener) {
+        this.onReceiveListeners.put(channelName, onReceiveListener);
     }
 
     private Runnable listenForMessages() {
@@ -31,11 +30,12 @@ public class ServerConnection extends SimpleConnection {
             while (!getSocket().isClosed()) {
                 try {
                     MessageData message = (MessageData) getObjectInputStream().readObject();
-                    if(onReceiveListener != null) {
-                        onReceiveListener.onSuccess(message);
-                    }
+                    onReceiveListeners.forEach((key, value) -> {
+                        if(message.getChannel().equals(key)) {
+                            value.onSuccess(message);
+                        }
+                    });
                 } catch (IOException | ClassNotFoundException e) {
-                    onReceiveListener.onFailure(e);
                     System.out.println("Server connection interrupted.");
                     try {
                         getSocket().close();
@@ -54,10 +54,4 @@ public class ServerConnection extends SimpleConnection {
         write(channelRequest);
     }
 
-    public void subscribeToChannels(String... args) {
-        MessageData<SubscribeRequestMessage> subscribeRequest = new MessageData<>();
-        subscribeRequest.setMessageType(MessageType.SUBSCRIBE_REQUEST);
-        subscribeRequest.setData(new SubscribeRequestMessage(Arrays.stream(args).collect(Collectors.toList())));
-        write(subscribeRequest);
-    }
 }
