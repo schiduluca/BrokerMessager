@@ -1,20 +1,18 @@
-package broker;
+package broker.sckeedoo.konio;
 
-import broker.dto.MessageData;
-import broker.networking.BrokerChannel;
-import broker.networking.ClientConnection;
+import broker.sckeedoo.konio.dto.MessageData;
+import broker.sckeedoo.konio.networking.BrokerChannel;
+import broker.sckeedoo.konio.networking.connection.ClientConnection;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 
 public class ClientsHandler {
-    private Map<String, ClientConnection> clients = new ConcurrentHashMap<>();
+    private List<ClientConnection> allClients = new ArrayList<>();
     private List<BrokerChannel> brokerChannels = new ArrayList<>();
 
     public void addClient(ClientConnection clientConnection) {
@@ -28,17 +26,16 @@ public class ClientsHandler {
                 MessageData o = (MessageData) clientConnection.getObjectInputStream().readObject();
                 switch (o.getMessageType()) {
                     case INITIALIZATION:
-                        clients.put(o.getData().getData(), clientConnection);
-                        clientConnection.setConnectionName(o.getData().getData());
+                        clientConnection.setConnectionName(o.getData().getMessage());
+                        allClients.add(clientConnection);
                         System.out.println("Client connected: " + clientConnection.getConnectionName());
-                        System.out.println("Number of clients connected: " + clients.size());
+                        System.out.println("Number of allClients connected: " + allClients.size());
                         break;
                     case SIMPLE_MESSAGE:
-                        clients.entrySet().stream().filter(name -> o.getReceivers().contains(name.getKey()))
-                                .forEach(connection -> connection.getValue().sendToClient(o));
+                        dispatchMessage(o);
                         break;
                     case CREATE_CHANNEL_REQUEST:
-                        createChannel(o.getData().getData());
+                        createChannel(o.getData().getMessage());
                         break;
                     case SUBSCRIBE_REQUEST:
                         subscribeToChannel(clientConnection, o);
@@ -51,16 +48,32 @@ public class ClientsHandler {
             } catch (IOException | ClassNotFoundException e) {
                 clientConnection.closeConnection();
                 System.out.println("Client disconnected: " + clientConnection.getConnectionName());
-                clients.values().remove(clientConnection);
-                System.out.println("Number of clients connected: " + clients.size());
+                allClients.remove(clientConnection);
+                System.out.println("Number of allClients connected: " + allClients.size());
 
                 return;
             }
         }
     }
 
+    private void dispatchMessage(MessageData o) {
+        List<ClientConnection> filteredClients = allClients.stream()
+                .filter(name -> o.getReceivers().contains(name.getConnectionName()))
+                .collect(Collectors.toList());
+
+        List<ClientConnection> collect = brokerChannels.stream()
+                .filter(channel -> o.getChannels().contains(channel.getChannelName()))
+                .flatMap(channel -> channel.getClients().stream())
+                .distinct().collect(Collectors.toList());
+
+        filteredClients.stream().filter(collect::contains)
+                .forEach(clientConnection -> clientConnection.sendToClient(o));
+
+
+    }
+
     private void subscribeToChannel(ClientConnection clientConnection, MessageData o) {
-        List<String> collect = Arrays.stream(o.getData().getData().split(","))
+        List<String> collect = Arrays.stream(o.getData().getMessage().split(","))
                 .collect(Collectors.toList());
         brokerChannels.stream().filter(element -> collect.contains(element.getChannelName()))
                 .forEach(brokerChannel -> {

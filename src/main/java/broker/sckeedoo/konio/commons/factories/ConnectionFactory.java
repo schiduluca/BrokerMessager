@@ -1,24 +1,36 @@
-package broker.factories;
+package broker.sckeedoo.konio.commons.factories;
 
-
-
-import broker.dto.InitializationMessage;
-import broker.dto.MessageData;
-import broker.dto.MessageType;
-import broker.networking.ServerConnection;
+import broker.sckeedoo.konio.dto.messagetype.InitializationMessage;
+import broker.sckeedoo.konio.dto.MessageData;
+import broker.sckeedoo.konio.dto.MessageType;
+import broker.sckeedoo.konio.networking.connection.ServerConnection;
 
 import java.io.IOException;
 import java.net.Socket;
 
 public class ConnectionFactory {
+    private static ConnectionFactory INSTANCE;
     private String hostName;
     private ServerConnection connection;
     private Socket socket;
 
-    public ConnectionFactory(String hostName) {
+    public static ConnectionFactory getINSTANCE() {
+        if(INSTANCE == null) {
+            INSTANCE = new ConnectionFactory();
+        }
+        return INSTANCE;
+    }
+
+    public ConnectionFactory build(String hostName) {
+        this.hostName = hostName;
+        createConnection();
+        return this;
+    }
+
+
+    private void createConnection() {
         try {
             socket = new Socket("localhost", 1234);
-            System.out.println(socket.getInetAddress() + " " + socket.getPort());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,6 +41,8 @@ public class ConnectionFactory {
         connection = new ServerConnection(socket);
         connection.write(initMessage);
     }
+
+    private ConnectionFactory() {}
 
     public String getHostName() {
         return hostName;

@@ -1,4 +1,6 @@
-package broker.dto;
+package broker.sckeedoo.konio.dto.messagetype;
+
+import broker.sckeedoo.konio.dto.Message;
 
 public class InitializationMessage implements Message {
     private static final long serialVersionUID = -1024359696043965764L;
@@ -10,7 +12,7 @@ public class InitializationMessage implements Message {
     }
 
     @Override
-    public String getData() {
+    public String getMessage() {
         return this.hostName;
     }
 

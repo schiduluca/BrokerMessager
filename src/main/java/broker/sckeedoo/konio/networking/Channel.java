@@ -1,9 +1,12 @@
-package broker.networking;
+package broker.sckeedoo.konio.networking;
 
+import broker.sckeedoo.konio.networking.connection.ClientConnection;
+
+import java.util.List;
 import java.util.Map;
 
 public interface Channel {
-    Map<String, ClientConnection> getClients();
+    List<ClientConnection> getClients();
     String getChannelName();
     void subScribeClient(ClientConnection clientConnection);
     void unsubscribeClient(ClientConnection clientConnection);

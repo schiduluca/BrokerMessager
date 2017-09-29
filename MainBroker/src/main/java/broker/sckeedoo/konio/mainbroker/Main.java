@@ -1,7 +1,7 @@
-package broker.mainbroker;
+package broker.sckeedoo.konio.mainbroker;
 
 
-import broker.BrokerMQ;
+import broker.sckeedoo.konio.BrokerMQ;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,7 +19,6 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println(properties);
         BrokerMQ mainBroker = new BrokerMQ();
         mainBroker.startBroker();
     }

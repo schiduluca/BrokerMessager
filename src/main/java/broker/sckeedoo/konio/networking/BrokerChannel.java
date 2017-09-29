@@ -1,19 +1,21 @@
-package broker.networking;
+package broker.sckeedoo.konio.networking;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import broker.sckeedoo.konio.networking.connection.ClientConnection;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BrokerChannel implements Channel {
 
     private String channelName;
-    private Map<String, ClientConnection> clients = new ConcurrentHashMap<>();
+    private List<ClientConnection> clients = new ArrayList<>();
 
     public BrokerChannel(String channelName) {
         this.channelName = channelName;
     }
 
     @Override
-    public Map<String, ClientConnection> getClients() {
+    public List<ClientConnection> getClients() {
         return clients;
     }
 
@@ -24,12 +26,12 @@ public class BrokerChannel implements Channel {
 
     @Override
     public void subScribeClient(ClientConnection clientConnection) {
-        clients.put(clientConnection.getConnectionName(), clientConnection);
+        clients.add(clientConnection);
     }
 
     @Override
     public void unsubscribeClient(ClientConnection clientConnection) {
-        clients.remove(clientConnection.getConnectionName());
+        clients.remove(clientConnection);
     }
 }
 

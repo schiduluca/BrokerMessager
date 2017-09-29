@@ -1,4 +1,4 @@
-package broker.dto;
+package broker.sckeedoo.konio.dto;
 
 public enum MessageType {
     INITIALIZATION,

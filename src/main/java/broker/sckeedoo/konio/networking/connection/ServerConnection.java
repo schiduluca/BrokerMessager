@@ -1,8 +1,11 @@
-package broker.networking;
+package broker.sckeedoo.konio.networking.connection;
 
 
-import broker.commons.OnReceiveListener;
-import broker.dto.*;
+import broker.sckeedoo.konio.commons.OnReceiveListener;
+import broker.sckeedoo.konio.dto.MessageData;
+import broker.sckeedoo.konio.dto.MessageType;
+import broker.sckeedoo.konio.dto.messagetype.ChannelRequestMessage;
+import broker.sckeedoo.konio.dto.messagetype.SubscribeRequestMessage;
 
 import java.io.IOException;
 import java.net.Socket;

@@ -1,4 +1,6 @@
-package broker.dto;
+package broker.sckeedoo.konio.dto.messagetype;
+
+import broker.sckeedoo.konio.dto.Message;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class SubscribeRequestMessage implements Message {
     }
 
     @Override
-    public String getData() {
+    public String getMessage() {
         return channelList.stream().reduce((s, s2) -> s + "," + s2).orElse("");
     }
 

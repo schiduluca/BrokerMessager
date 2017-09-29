@@ -1,4 +1,6 @@
-package broker.dto;
+package broker.sckeedoo.konio.dto.messagetype;
+
+import broker.sckeedoo.konio.dto.Message;
 
 public class CustomMessage implements Message {
 
@@ -10,16 +12,12 @@ public class CustomMessage implements Message {
         this.message = message;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
     public void setMessage(String message) {
         this.message = message;
     }
 
     @Override
-    public String getData() {
+    public String getMessage() {
         return this.message;
     }
 

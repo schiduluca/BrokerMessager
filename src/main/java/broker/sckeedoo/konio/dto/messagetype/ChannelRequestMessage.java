@@ -1,4 +1,6 @@
-package broker.dto;
+package broker.sckeedoo.konio.dto.messagetype;
+
+import broker.sckeedoo.konio.dto.Message;
 
 public class ChannelRequestMessage implements Message {
 
@@ -9,7 +11,7 @@ public class ChannelRequestMessage implements Message {
     }
 
     @Override
-    public String getData() {
+    public String getMessage() {
         return this.channelName;
     }
 

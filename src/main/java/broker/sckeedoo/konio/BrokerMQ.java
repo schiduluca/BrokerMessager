@@ -1,7 +1,7 @@
-package broker;
+package broker.sckeedoo.konio;
 
 
-import broker.networking.ClientConnection;
+import broker.sckeedoo.konio.networking.connection.ClientConnection;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -32,8 +32,7 @@ public class BrokerMQ {
                     ClientConnection connection = new ClientConnection(accept);
                     clientsHandler.addClient(connection);
                 }).start();
-
-
+                
             } catch (IOException e) {
                 e.printStackTrace();
             }
