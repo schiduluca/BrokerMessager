@@ -55,5 +55,6 @@ public class ServerConnection extends SimpleConnection {
         MessageData<SubscribeRequestMessage> subscribeRequest = new MessageData<>();
         subscribeRequest.setMessageType(MessageType.SUBSCRIBE_REQUEST);
         subscribeRequest.setData(new SubscribeRequestMessage(Arrays.stream(args).collect(Collectors.toList())));
+        write(subscribeRequest);
     }
 }

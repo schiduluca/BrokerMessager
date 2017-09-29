@@ -4,33 +4,23 @@ public class CustomMessage implements Message {
 
     private static final long serialVersionUID = -3706310678806165793L;
 
-    private String name;
-    private Integer age;
+    private String message;
 
-    public CustomMessage(String name, Integer age) {
-        this.name = name;
-        this.age = age;
+    public CustomMessage(String message) {
+        this.message = message;
     }
 
-    public String getName() {
-        return name;
+    public String getMessage() {
+        return message;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     @Override
     public String getData() {
-        return this.name;
+        return this.message;
     }
 
     @Override

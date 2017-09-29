@@ -36,7 +36,7 @@ public class Client {
 
         MessageData<CustomMessage> messageData = new MessageData<>();
 
-        messageData.setData(new CustomMessage("Jora", 21));
+        messageData.setData(new CustomMessage("Jora"));
         messageData.setMessageType(MessageType.SIMPLE_MESSAGE);
 
         connection.write(messageData, "Ion", "Vanea");
@@ -44,6 +44,8 @@ public class Client {
         connection.createChannel("PLEA");
         connection.createChannel("UTM");
         connection.createChannel("PLEA");
+
+        connection.subscribeToChannels("UTM");
 
 
     }

@@ -6,9 +6,11 @@ import broker.networking.ClientConnection;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 
 public class ClientsHandler {
@@ -32,7 +34,6 @@ public class ClientsHandler {
                         System.out.println("Number of clients connected: " + clients.size());
                         break;
                     case SIMPLE_MESSAGE:
-                        System.out.println(o.getData().getData());
                         clients.entrySet().stream().filter(name -> o.getReceivers().contains(name.getKey()))
                                 .forEach(connection -> connection.getValue().sendToClient(o));
                         break;
@@ -40,7 +41,8 @@ public class ClientsHandler {
                         createChannel(o.getData().getData());
                         break;
                     case SUBSCRIBE_REQUEST:
-
+                        subscribeToChannel(clientConnection, o);
+                        break;
 
                     default:
                         break;
@@ -55,6 +57,16 @@ public class ClientsHandler {
                 return;
             }
         }
+    }
+
+    private void subscribeToChannel(ClientConnection clientConnection, MessageData o) {
+        List<String> collect = Arrays.stream(o.getData().getData().split(","))
+                .collect(Collectors.toList());
+        brokerChannels.stream().filter(element -> collect.contains(element.getChannelName()))
+                .forEach(brokerChannel -> {
+                    brokerChannel.subScribeClient(clientConnection);
+                    System.out.println("Client " + clientConnection.getConnectionName() + " added to channel " + brokerChannel.getChannelName());
+                });
     }
 
     private void createChannel(String channelName) {

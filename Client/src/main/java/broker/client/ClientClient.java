@@ -16,7 +16,8 @@ public class ClientClient {
         connection.setOnReceiveListener(new OnReceiveListener() {
             @Override
             public void onSuccess(MessageData message) {
-                System.out.println(message);
+                System.out.println(message.getData().getData());
+
             }
 
             @Override

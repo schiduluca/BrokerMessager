@@ -12,7 +12,7 @@ public class SubscribeRequestMessage implements Message {
 
     @Override
     public String getData() {
-        return null;
+        return channelList.stream().reduce((s, s2) -> s + "," + s2).orElse("");
     }
 
     @Override
