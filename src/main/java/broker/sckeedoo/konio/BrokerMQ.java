@@ -12,11 +12,11 @@ public class BrokerMQ {
     private ClientsHandler clientsHandler;
 
 
-    public BrokerMQ() {
+    public BrokerMQ(int port) {
         clientsHandler = new ClientsHandler();
 
         try {
-            serverSocket = new ServerSocket(1234);
+            serverSocket = new ServerSocket(port);
         } catch (IOException e) {
             e.printStackTrace();
         }

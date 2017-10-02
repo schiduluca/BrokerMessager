@@ -11,13 +11,13 @@ public class ClientTwo {
     public static void main(String[] args) {
 
         ServerConnection connection = ConnectionFactory.getINSTANCE()
-                .build("Ion")
+                .build("Ion", 1234)
                 .getConnection();
 
         connection.subscribeToChannel("PLEA", new OnReceiveListener() {
             @Override
-            public void onSuccess(MessageData<?> message) {
-                System.out.println(message.getData().getMessage());
+            public void onSuccess(MessageData message) {
+                System.out.println(message.getData());
             }
 
             @Override

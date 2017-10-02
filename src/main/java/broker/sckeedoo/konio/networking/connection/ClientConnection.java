@@ -22,6 +22,7 @@ public class ClientConnection extends SimpleConnection {
         }
     }
 
+
     public String getConnectionName() {
         return connectionName;
     }

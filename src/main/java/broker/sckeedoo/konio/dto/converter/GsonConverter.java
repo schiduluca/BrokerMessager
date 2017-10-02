@@ -3,7 +3,7 @@ package broker.sckeedoo.konio.dto.converter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class JsonConverter {
+public class GsonConverter {
 
     public static <T> String convertToJson(T object) {
         GsonBuilder gsonBuilder = new GsonBuilder();

@@ -1,12 +1,15 @@
 package broker.sckeedoo.konio.dto;
 
+import com.mongodb.BasicDBObject;
+
 import java.io.Serializable;
 import java.util.List;
 
-public class MessageData<T extends Message> implements Serializable {
+public class MessageData extends BasicDBObject implements Serializable {
     private static final long serialVersionUID = -7303201840600026558L;
 
-    private T data;
+    private String id;
+    private String data;
     private MessageType messageType;
     private List<String> receivers;
     private String channel;
@@ -14,11 +17,11 @@ public class MessageData<T extends Message> implements Serializable {
     public MessageData() {
     }
 
-    public T getData() {
-        return data;
+    public String getData() {
+        return this.data;
     }
 
-    public void setData(T data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -31,7 +34,7 @@ public class MessageData<T extends Message> implements Serializable {
     }
 
     public List<String> getReceivers() {
-        return receivers;
+        return this.receivers;
     }
 
     public String getChannel() {
@@ -44,5 +47,14 @@ public class MessageData<T extends Message> implements Serializable {
 
     public void setReceivers(List<String> receivers) {
         this.receivers = receivers;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

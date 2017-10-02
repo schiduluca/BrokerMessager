@@ -25,7 +25,7 @@ public class BrokerChannel implements Channel {
     }
 
     @Override
-    public void subScribeClient(ClientConnection clientConnection) {
+    public void subscribeClient(ClientConnection clientConnection) {
         clients.add(clientConnection);
     }
 

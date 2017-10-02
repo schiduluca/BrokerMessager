@@ -1,6 +1,5 @@
 package broker.sckeedoo.konio.commons.factories;
 
-import broker.sckeedoo.konio.dto.messagetype.InitializationMessage;
 import broker.sckeedoo.konio.dto.MessageData;
 import broker.sckeedoo.konio.dto.MessageType;
 import broker.sckeedoo.konio.networking.connection.ServerConnection;
@@ -13,6 +12,7 @@ public class ConnectionFactory {
     private String hostName;
     private ServerConnection connection;
     private Socket socket;
+    private int port;
 
     public static ConnectionFactory getINSTANCE() {
         if(INSTANCE == null) {
@@ -21,8 +21,9 @@ public class ConnectionFactory {
         return INSTANCE;
     }
 
-    public ConnectionFactory build(String hostName) {
+    public ConnectionFactory build(String hostName, int port) {
         this.hostName = hostName;
+        this.port = port;
         createConnection();
         return this;
     }
@@ -30,14 +31,14 @@ public class ConnectionFactory {
 
     private void createConnection() {
         try {
-            socket = new Socket("localhost", 1234);
+            socket = new Socket("localhost", port);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        MessageData<InitializationMessage> initMessage = new MessageData<>();
+        MessageData initMessage = new MessageData();
         initMessage.setMessageType(MessageType.INITIALIZATION);
-        initMessage.setData(new InitializationMessage(hostName));
+        initMessage.setData(hostName);
         connection = new ServerConnection(socket);
         connection.write(initMessage);
     }

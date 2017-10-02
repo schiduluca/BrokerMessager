@@ -23,3 +23,8 @@ sourceSets {
     }
 }
 
+task(startBroker, dependsOn: jar, type: JavaExec ) {
+    main = 'broker.sckeedoo.konio.mainbroker.Main'
+    classpath = sourceSets.main.runtimeClasspath
+}
+

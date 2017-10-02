@@ -4,7 +4,6 @@ package broker.sckeedoo.konio.networking.connection;
 import broker.sckeedoo.konio.commons.OnReceiveListener;
 import broker.sckeedoo.konio.dto.MessageData;
 import broker.sckeedoo.konio.dto.MessageType;
-import broker.sckeedoo.konio.dto.messagetype.ChannelRequestMessage;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -48,9 +47,15 @@ public class ServerConnection extends SimpleConnection {
     }
 
     public void createChannel(String channelName) {
-        MessageData<ChannelRequestMessage> channelRequest = new MessageData<>();
+        MessageData channelRequest = new MessageData();
         channelRequest.setMessageType(MessageType.CREATE_CHANNEL_REQUEST);
-        channelRequest.setData(new ChannelRequestMessage(channelName));
+        channelRequest.setData(channelName);
+        write(channelRequest);
+    }
+
+    public void close() {
+        MessageData channelRequest = new MessageData();
+        channelRequest.setMessageType(MessageType.CLOSE_CONNECTION);
         write(channelRequest);
     }
 

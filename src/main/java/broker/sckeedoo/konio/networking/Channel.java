@@ -8,6 +8,6 @@ import java.util.Map;
 public interface Channel {
     List<ClientConnection> getClients();
     String getChannelName();
-    void subScribeClient(ClientConnection clientConnection);
+    void subscribeClient(ClientConnection clientConnection);
     void unsubscribeClient(ClientConnection clientConnection);
 }

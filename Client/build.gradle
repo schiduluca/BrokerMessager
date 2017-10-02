@@ -12,3 +12,8 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile rootProject
 }
+
+task(startClient, dependsOn: jar, type: JavaExec ) {
+    main = 'broker.sckeedoo.konio.mainbroker.Main'
+    classpath = sourceSets.main.runtimeClasspath
+}

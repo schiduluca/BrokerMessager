@@ -13,13 +13,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        try {
-            properties.load(new FileReader("MainBroker/src/main/resources/application.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        BrokerMQ mainBroker = new BrokerMQ();
+        BrokerMQ mainBroker = new BrokerMQ(1234);
         mainBroker.startBroker();
+
     }
 }
