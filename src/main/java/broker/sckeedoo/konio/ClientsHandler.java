@@ -47,12 +47,12 @@ public class ClientsHandler {
                         handleDisconnection(clientConnection);
                         return;
                     default:
-                        System.out.println("Abnormal disconnection");
-                        handleDisconnection(clientConnection);
                         break;
                 }
 
             } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Abnormal disconnection");
+                handleDisconnection(clientConnection);
                 return;
             }
         }

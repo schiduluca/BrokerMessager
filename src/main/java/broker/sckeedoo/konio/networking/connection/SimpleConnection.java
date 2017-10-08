@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Arrays;
 
-public abstract class SimpleConnection {
+public abstract class SimpleConnection implements Connection {
 
     protected Socket socket;
     protected ObjectOutputStream objectOutputStream;
@@ -35,6 +35,7 @@ public abstract class SimpleConnection {
         }
     }
 
+    @Override
     public void closeConnection() {
         try {
             objectInputStream.close();
@@ -45,14 +46,17 @@ public abstract class SimpleConnection {
     }
 
 
+    @Override
     public ObjectInputStream getObjectInputStream() {
         return this.objectInputStream;
     }
 
+    @Override
     public ObjectOutputStream geObjectOutputStream() {
         return this.objectOutputStream;
     }
 
+    @Override
     public Socket getSocket() {
         return socket;
     }
