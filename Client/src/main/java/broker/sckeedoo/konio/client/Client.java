@@ -29,7 +29,7 @@ public class Client {
 
 
         messageData.setMessageType(MessageType.SIMPLE_MESSAGE);
-        messageData.setChannel("PLEA");
+        messageData.setChannel("UTM");
 
         connection.write(messageData, "Ion", "Jora");
 

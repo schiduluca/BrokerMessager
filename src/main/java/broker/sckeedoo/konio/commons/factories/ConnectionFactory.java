@@ -6,6 +6,7 @@ import broker.sckeedoo.konio.networking.connection.ServerConnection;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 
 public class ConnectionFactory {
     private static ConnectionFactory INSTANCE;
@@ -25,6 +26,7 @@ public class ConnectionFactory {
         this.hostName = hostName;
         this.port = port;
         createConnection();
+
         return this;
     }
 

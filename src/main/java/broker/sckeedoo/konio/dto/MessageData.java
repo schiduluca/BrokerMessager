@@ -2,9 +2,9 @@ package broker.sckeedoo.konio.dto;
 
 import com.mongodb.BasicDBObject;
 
+
 import java.io.Serializable;
 import java.util.List;
-
 public class MessageData extends BasicDBObject implements Serializable {
     private static final long serialVersionUID = -7303201840600026558L;
 

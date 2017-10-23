@@ -8,6 +8,7 @@ import broker.sckeedoo.konio.dto.entities.User;
 import broker.sckeedoo.konio.networking.connection.ServerConnection;
 
 import java.util.Scanner;
+import java.util.UUID;
 
 public class ClientClient {
 
@@ -18,7 +19,10 @@ public class ClientClient {
                 .getConnection();
 
 
-        connection.subscribeToChannel("PLEA", new OnReceiveListener() {
+
+        connection.createChannel("UTM");
+
+        connection.subscribeToChannel("UTM", new OnReceiveListener() {
             @Override
             public void onSuccess(MessageData message) {
                 User user = GsonConverter.convertToDto(message.getData(), User.class);
@@ -28,10 +32,12 @@ public class ClientClient {
 
             @Override
             public void onFailure(Throwable throwable) {
-
+                // handle
             }
         });
 
+
+        connection.readFromChannel();
         Scanner scanner = new Scanner(System.in);
         while (true) {
 //            String string = scanner.nextLine();

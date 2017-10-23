@@ -14,7 +14,7 @@ public class ClientTwo {
                 .build("Ion", 1234)
                 .getConnection();
 
-        connection.subscribeToChannel("PLEA", new OnReceiveListener() {
+        connection.subscribeToChannel("UTM", new OnReceiveListener() {
             @Override
             public void onSuccess(MessageData message) {
                 System.out.println(message.getData());

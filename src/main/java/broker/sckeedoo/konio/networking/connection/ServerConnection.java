@@ -46,6 +46,10 @@ public class ServerConnection extends SimpleConnection {
         };
     }
 
+    public MessageData readFromChannel() {
+        return null;
+    }
+
     public void createChannel(String channelName) {
         MessageData channelRequest = new MessageData();
         channelRequest.setMessageType(MessageType.CREATE_CHANNEL_REQUEST);
